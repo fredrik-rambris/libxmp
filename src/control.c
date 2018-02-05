@@ -46,6 +46,8 @@ xmp_context xmp_create_context()
 	ctx->m.defpan = 100;
 	ctx->s.numvoc = SMIX_NUMVOC;
 
+	ctx->p.soloinst = -1;
+
 	return (xmp_context)ctx;
 }
 
@@ -301,7 +303,6 @@ int xmp_set_player__(xmp_context opaque, int parm, int val)
 	struct mixer_data *s = &ctx->s;
 	int ret = -XMP_ERROR_INVALID;
 
-
 	if (parm == XMP_PLAYER_SMPCTL || parm == XMP_PLAYER_DEFPAN) {
 		/* these should be set before loading the module */
 		if (ctx->state >= XMP_STATE_LOADED) {
@@ -317,7 +318,7 @@ int xmp_set_player__(xmp_context opaque, int parm, int val)
 	}
 
 	switch (parm) {
-	case XMP_PLAYER_AMP:
+    case XMP_PLAYER_AMP:
 		if (val >= 0 && val <= 3) {
 			s->amplify = val;
 			ret = 0;
@@ -387,6 +388,10 @@ int xmp_set_player__(xmp_context opaque, int parm, int val)
 	case XMP_PLAYER_VOICES:
 		s->numvoc = val;
 		break;
+
+    case XMP_PLAYER_SOLOINST:
+        p->soloinst = val;
+        break;
 	}
 
 	return ret;
@@ -489,6 +494,9 @@ int xmp_get_player__(xmp_context opaque, int parm)
 		break;
 	case XMP_PLAYER_VOICES:
 		ret = s->numvoc;
+		break;
+	case XMP_PLAYER_SOLOINST:
+		ret = p->soloinst;
 		break;
 	}
 

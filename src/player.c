@@ -751,6 +751,10 @@ static void process_volume(struct context_data *ctx, int chn, int act)
 
 	xc->info_finalvol = TEST_NOTE(NOTE_SAMPLE_END) ? 0 : finalvol;
 
+	if (p->soloinst >= 0 && xc->ins != p->soloinst) {
+		finalvol = 0;
+	}
+
 	libxmp_virt_setvol(ctx, chn, finalvol);
 
 	/* Check Amiga split channel */

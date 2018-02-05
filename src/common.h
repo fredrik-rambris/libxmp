@@ -345,6 +345,8 @@ struct player_data {
 	int channel_vol[XMP_MAX_CHANNELS];
 	char channel_mute[XMP_MAX_CHANNELS];
 
+	int soloinst;
+
 	struct virt_control {
 		int num_tracks;		/* Number of tracks */
 		int virt_channels;	/* Number of virtual channels */
